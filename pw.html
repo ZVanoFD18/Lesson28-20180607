@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Lesson28-20180607/pw.png</title>
+	</head>
+	<body>
+			<img src="PW.png" alt="" style="width : 100%;">
+			<!-- Выбор задачи-->
+			<script type="text/javascript">
+				var fChoise = function(){
+					outer :	while (true) {
+						switch (+prompt("Укажите № задачи для выполнения")) {
+							case 1:
+								doTask1();
+								break;
+							case 2:
+								doTask2();
+								break;
+							case 3:
+								doTask3();
+								break;
+							case 4:
+								doTask4();
+								break;
+							default:
+								alert('Завершение работы.')
+								break outer;
+								break;
+						}
+					}
+				}
+				setTimeout(fChoise, 100);
+			</script>
+			<!-- Задача 1.-->
+			<script type="text/javascript">
+				function doTask1(){
+					alert('Задача 1. Старт.');
+					const endValue = 500;
+					const minStartValue = 0;
+					var startValue = parseInt(prompt('Укажите целое число от ' + startValue + ' до ' + endValue, minStartValue));
+					if (isNaN(startValue)){
+						alert('Ошибка! Введено неверное значение NaN.');
+						return;
+					} else if (startValue < minStartValue || startValue > endValue){
+						alert('Ошибка! Введенное число вне допустимого диапазона чисел.');
+						return;
+					}
+					var sum = 0;
+					for (var i = startValue; i <= endValue; i++) {
+						sum += i
+					}
+					alert('Сумма целых чисел от ' + startValue + ' до ' + endValue + ' = ' + sum);
+				}
+			</script>
+			<!-- Задача 2.-->
+			<script type="text/javascript">
+				function doTask2(){
+					alert('Задача 2. Старт.');
+					const endValue = 500;
+					var x = parseInt(prompt('Укажите целое число для возведения в степень')),
+							y = parseInt(prompt('Укажите степень возведения (целое)')),
+							result = 1;
+					;
+					if (isNaN(x) || isNaN(y)){
+							alert('Ошибка! Введено неверное значение NaN.');
+							return;
+					}
+					for (var i = y; i > 0; i--) {
+						result *= x;
+						console.log(x + '^' + (y - i + 1), result);
+					}
+					alert('Число ' + x + ' в степени ' + y + ' = ' + result);
+				}
+			</script>
+			<!-- Задача 3.-->
+			<script type="text/javascript">
+				function doTask3(){
+					alert('Задача 3. Старт.');
+					const startValue = 1;
+					const endValue = 1000;
+					var result = 0, count = 0, expr='';
+					for (var i = startValue; i <= endValue; i++) {
+					  ++count;
+						result += i;
+						expr += (expr == '' ? '(' : '+') + i;
+					}
+					expr += ')/' + count;
+					console.log('Сумма чисел', result);
+					console.log('Количество чисел', count);
+					result /= count;
+					alert('Среднее арифметическое целых чисел из диапазона ' + startValue + '..' + endValue + ' = ' + result);
+					if(confirm('Хотите выполнить выражение для проверки? \n' + expr)){
+						try {
+							result = eval(expr);
+							alert('Результат выражения через вызов "eval": ' + result);
+						} catch (exception) {
+							alert('Ошибка! ' + exception.message);
+						}
+					}
+				}
+			</script>
+			<!-- Задача 4.-->
+			<script type="text/javascript">
+				function doTask4(){
+					alert('Задача 4. Старт.');
+					const minValue = 1;
+					const maxValue = 20;
+					var result = 0, a = parseInt(prompt('Укажите начальное значение "a"'));
+					if (isNaN(a)){
+							alert('Ошибка! Введено неверное значение NaN.');
+							return;
+					} else if (a < minValue || a > maxValue) {
+						alert('Ошибка! Значение вне допустимого диапазона');
+						return;
+					}
+					for (var i = a; i <= maxValue; i++) {
+						result = (i == a) ? a : result * i;
+					}
+					alert('Проиизведение чисел диапазона ' + a + '..' + maxValue + ' = ' + result);
+				}
+			</script>
+	</body>
+</html>

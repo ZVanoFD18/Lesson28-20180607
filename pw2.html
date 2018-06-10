@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Lesson28-20180607/pw2.png</title>
+	</head>
+	<body>
+			<img src="PW2.png" alt="" style="width : 100%;">
+			<!-- Выбор задачи-->
+			<script type="text/javascript">
+				var fChoise = function(){
+					outer :	while (true) {
+						switch (+prompt("Укажите № задачи для выполнения")) {
+							case 1:
+								doTask1();
+								break;
+							case 2:
+								doTask2();
+								break;
+							case 3:
+								doTask3();
+								break;
+							default:
+								alert('Завершение работы.')
+								break outer;
+								break;
+						}
+					}
+				}
+				setTimeout(fChoise, 100);
+			</script>
+			<!-- Задача 1.-->
+			<script type="text/javascript">
+				function doTask1(){
+					alert('Задача 1. Старт.');
+					const signs = ',-!?.';
+					const numbers = '0123456789';
+					var char = prompt('Укажите один символ');
+					if(char.length !== 1 ){
+						alert('Ошибка! Введеное значение не является одиночным символом ');
+						return;
+					}
+					if (numbers.indexOf(char) >= 0){
+						alert('Ввели цифру.');
+					} else if (signs.indexOf(char) >= 0){
+						alert('Ввели знак препинания.');
+					} else if ( char >= 'A' && char <= 'Z'
+						|| char >= 'a' && char <= 'z'
+						|| char >= 'А' && char <= 'Я'
+						|| char >= 'а' && char <= 'я'
+					) {
+						alert('Ввели букву латинсеого либо русского алфавита.');
+					} else {
+						alert('Ввели что-то другое.');
+					}
+				}
+			</script>
+			<!-- Задача 2.-->
+			<script type="text/javascript">
+				function doTask2(){
+					alert('Задача 2. Старт.');
+					var tarifs = {
+						'op1' : {
+							inp : 0.55,
+							out : 0.35
+						},
+						'op2' : {
+							inp : 0.13,
+							out : 0.75
+						},
+						'op3' : {
+							inp : 0.17,
+							out : 0.35
+						}
+					};
+					var selOperMsg = '';
+					for(key in tarifs){
+						selOperMsg += (selOperMsg == '' ? '' : ', ' ) + key;
+					}
+					var oper1 = prompt('Укажите оператора, с которого звоним: ' + selOperMsg),
+							oper2 = prompt('Укажите оператора, на которого звоним: ' + selOperMsg);
+					if (!(oper1 in tarifs) || !(oper2 in tarifs)){
+						alert('Ошибка! оператор не найден в списке.');
+						return;
+					}
+					var tarif1 = tarifs[oper1].out,
+					    tarif2 = tarifs[oper2].inp;
+					alert('Стоимость одной минуты разговора ' + (tarif1 + tarif2) + ' сольдо. Исходящий тариф ' + tarif1 + ', входящий тариф ' + tarif2);
+				}
+			</script>
+			<!-- Задача 3.-->
+			<script type="text/javascript">
+				function doTask3(){
+					alert('Задача 3. Старт.');
+					const
+						/*Стоимость оплачиваеиого куска кода*/
+						PART_COSTS = 50,
+						/*Количество строк кода в опдачиваемом куске*/
+						PART_LINES = 100,
+						/*Размер штрафа за одно опоздание*/
+						PENALTY_COST = 20;
+					switch (+prompt('Укажите алгоритм расчета:'
+						+ '\n 1 - пользователь вводит желаемый доход Васи и количество опозданий. Посчитать сколько строк кода ему надо написать.'
+						+ '\n 2 - пользователь вводит количество строк кода, написанное Васей и желаемый объем зарплаты. Посчитать, сколько раз Вася может опоздать.'
+						+ '\n 3 - пользователь вводит количество строк кода и оличество опозданий. Определить сколько денег заплатят Васе и заплатят ли вообще.'
+					)) {
+						case 1 : {
+							let salary = parseFloat(prompt('Желаемый доход: ')),
+									cntPenalty = parseInt(prompt('Количество опозданий: '));
+								if (isNaN(salary) || isNaN(cntPenalty)){
+									return alertt('Ошибка! Введено значение NaN.');
+								}
+								let cntLines = PART_LINES * (salary + cntPenalty * PENALTY_COST) / PART_COSTS;
+								alert('Результат по алгоритму 1:\nДля получения желаемого дохода Васе нужно написать ' + cntLines + ' строк кода.');
+							}
+							break;
+						case 2 : {
+								let wantSalary = parseFloat(prompt('Желаемый доход: ')),
+										cntLines = parseInt(prompt('Количество написанных строк кода: '));
+								if (isNaN(wantSalary) || isNaN(cntLines)){
+									return alertt('Ошибка! Введено значение NaN.');
+								}
+								let realSalary = Math.floor(cntLines / PART_LINES) * PART_COSTS,
+										canLateTimes =  (realSalary - wantSalary) <= 0 ? 0 : Math.floor((realSalary - wantSalary) / PENALTY_COST);
+								alert('Результат по алгоритму 2:\nВася может опоздать ' + canLateTimes + ' раз при желаемой ЗП ' + wantSalary + ' и выработке ' + cntLines + ' строк кода.');
+							}
+							break;
+							case 3 : {
+									let cntPenalty = parseFloat(prompt('Количество опозданий: ')),
+											cntLines = parseInt(prompt('Количество написанных строк кода: '));
+									if (isNaN(cntPenalty) || isNaN(cntLines)){
+										return alertt('Ошибка! Введено значение NaN.');
+									}
+									let realSalary = Math.floor(cntLines / PART_LINES) * PART_COSTS,
+											restSalary =  (realSalary - cntPenalty * PENALTY_COST);
+									restSalary = restSalary > 0 ? restSalary : 0;
+									alert('Результат по алгоритму 3:\nВася получит ' + restSalary + ' сольдо, если опоздает ' + cntPenalty + ' раз и напишет ' + cntLines + ' строк кода.');
+								}
+								break;
+							default:
+								alert('Ошибка! Заданный алгоритм не поддерживается.');
+					}
+				}
+			</script>
+	</body>
+</html>
